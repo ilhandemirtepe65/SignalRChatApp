@@ -4,20 +4,22 @@
 
 
 <div class="container">
-    <div class="row p-1">
-        <div class="col-1">NickName</div>
-        <div class="col-5"><input type="text" id="userInput" /></div>
-    </div>
-    <div class="row p-1">
-        <div class="col-1">Message</div>
-        <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6 text-end">
-            <input type="button" id="sendButton" onclick="sendMessage()" value="Send Message" />
+
+    <form asp-controller="Home" asp-action="SaveUserMessage" method="post">
+         <div class="row p-1">
+            <div class="col-1">NickName</div>
+            <div class="col-5"><input name="UserNickName" type="text" id="userInput" /></div>
         </div>
-    </div>
-    
+        <div class="row p-1">
+            <div class="col-1">Message</div>
+            <div class="col-5"><input name="Message" type="text" class="w-100" id="messageInput" /></div>
+        </div>
+        <div class="row p-1">
+            <div class="col-6 text-end">
+                <input type="submit" id="sendButton"  value="Send Message" />
+            </div>
+        </div>
+    </form>
     <div class="row p-1">
         <div class="col-6">
             <ul id="messagesList"></ul>

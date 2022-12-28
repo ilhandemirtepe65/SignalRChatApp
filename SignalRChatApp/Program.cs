@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSignalR();
+builder.Services.AddSignalR().AddStackExchangeRedis("127.0.01:6379");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
