@@ -1,44 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Connections;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using SignalRChatApp.Models;
-using System.Diagnostics;
 using System.Text;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.AspNetCore.Http.Connections;
-
-
-
-
-
-
-//using System;
-//using System.Collections.Generic;
-//using System.Diagnostics;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Mvc;
-
-//using Microsoft.Extensions.Caching.Distributed;
-//using Newtonsoft.Json;
-//using System.Text;
-//using Microsoft.AspNetCore.Http;
-//using System.Net.Http.Headers;
-//using System.IO;
-//using Microsoft.AspNetCore.Hosting;
-//using Microsoft.AspNetCore.SignalR.Client;
-
-
-
-
-
-
-
-
-
-
-
 
 namespace SignalRChatApp.Controllers
 {
@@ -81,8 +47,6 @@ namespace SignalRChatApp.Controllers
 
             model.Insert(0, userMessage);
             var data = await AddRedisCache(model, 130, "usermessage");
-            //Push SignalR
-            //Trigger The Signal
             Connect().Wait();
             await connectionSignalR.InvokeAsync("SendMessage", userMessage);
             return RedirectToAction("Index");
@@ -93,16 +57,8 @@ namespace SignalRChatApp.Controllers
                 .WithUrl("http://localhost:5142/chatHub", options =>
                 {
                     options.Transports = HttpTransportType.WebSockets;
-                })
-
-                .Build();
+                }).Build();
             await connectionSignalR.StartAsync();
-
-
-            //connectionSignalR = new HubConnectionBuilder().WithUrl("http://localhost:5142/chatHub", options => {
-            //    options.Transports = HttpTransportType.WebSockets;
-            //}).WithAutomaticReconnect().Build();
-            //await connectionSignalR.StartAsync();
         }
     }
 }
